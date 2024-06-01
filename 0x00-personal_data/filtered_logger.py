@@ -1,23 +1,49 @@
 #!/usr/bin/env python3
 """
-This module provides a function to obfuscate specified fields in log messages.
+Module containing RedactingFormatter class for log formatting.
 """
 
-import re
+import logging
 from typing import List
 
 
-def filter_datum(
-        fields: List[str], redaction: str, message: str, separator: str
-        ) -> str:
+class RedactingFormatter(logging.Formatter):
     """
-    Obfuscate specified fields in the log message.
+    Redacting Formatter class for log records.
+    """
 
-    :param fields: List of field names to obfuscate.
-    :param redaction: String to replace the field values with.
-    :param message: The log message containing the fields.
-    :param separator: The character that separates fields in the log message.
-    :return: The obfuscated log message.
-    """
-    pattern = '|'.join([f'(?<={field}=)[^{separator}]*' for field in fields])
-    return re.sub(pattern, redaction, message)
+    REDACTION = "***"
+    FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
+    SEPARATOR = ";"
+
+    def __init__(self, fields: List[str]):
+        """
+        Initialize the RedactingFormatter with fields to redact.
+
+        :param fields: List of strings representing fields to redact.
+        """
+        super().__init__(self.FORMAT)
+        self.fields = fields
+
+    def format(self, record: logging.LogRecord) -> str:
+        """
+        Format the log record.
+
+        :param record: The log record to format.
+        :return: The formatted log message.
+        """
+        message = super().format(record)
+        return self.filter_message(message)
+
+    def filter_message(self, message: str) -> str:
+        """
+        Filter specified fields in the log message.
+
+        :param message: The log message to filter.
+        :return: The filtered log message.
+        """
+        for field in self.fields:
+            message = re.sub(
+                    fr'{field}=[^;]+', f'{field}={self.REDACTION}', message
+                    )
+        return message
