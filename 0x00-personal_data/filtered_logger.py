@@ -70,8 +70,3 @@ def get_logger() -> logging.Logger:
     logger.addHandler(stream_handler)
 
     return logger
-
-
-if __name__ == "__main__":
-    logger = get_logger()
-    logger.info("This is a test log message with sensitive information.")
