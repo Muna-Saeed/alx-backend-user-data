@@ -4,6 +4,7 @@ Module containing RedactingFormatter class for log formatting.
 """
 
 import logging
+import re
 from typing import List
 
 
