@@ -10,6 +10,9 @@ from logging import StreamHandler
 from typing import List, Tuple
 
 
+PII_FIELDS = ("name", "email", "phone", "ssn", "password")
+
+
 class RedactingFormatter(logging.Formatter):
     """
     Redacting Formatter class for log records.
@@ -50,9 +53,6 @@ class RedactingFormatter(logging.Formatter):
                     fr'{field}=[^;]+', f'{field}={self.REDACTION}', message
                     )
         return message
-
-
-PII_FIELDS = ("name", "email", "phone", "ssn", "password")
 
 
 def get_logger() -> logging.Logger:
