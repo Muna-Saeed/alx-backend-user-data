@@ -5,6 +5,7 @@ Module containing hash_password function to securely hash passwords.
 
 import bcrypt
 
+
 def hash_password(password: str) -> bytes:
     """
     Generate a salted, hashed password using bcrypt.
