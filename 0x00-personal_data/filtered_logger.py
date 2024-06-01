@@ -91,13 +91,3 @@ def get_db():
         host=host,
         database=database
     )
-
-
-if __name__ == "__main__":
-    db = get_db()
-    cursor = db.cursor()
-    cursor.execute("SELECT COUNT(*) FROM users;")
-    for row in cursor:
-        print(row[0])
-    cursor.close()
-    db.close()
