@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 """
-Module containing get_logger function and PII_FIELDS constant.
+Module containing RedactingFormatter class for log formatting.
 """
-import re
+
 import logging
-from logging import StreamHandler
+import re
+from typing import List
 
 
 class RedactingFormatter(logging.Formatter):
@@ -16,11 +17,11 @@ class RedactingFormatter(logging.Formatter):
     FORMAT = "[HOLBERTON] %(name)s %(levelname)s %(asctime)-15s: %(message)s"
     SEPARATOR = ";"
 
-    def __init__(self, fields: tuple):
+    def __init__(self, fields: List[str]):
         """
         Initialize the RedactingFormatter with fields to redact.
 
-        :param fields: Tuple of strings representing fields to redact.
+        :param fields: List of strings representing fields to redact.
         """
         super().__init__(self.FORMAT)
         self.fields = fields
@@ -47,30 +48,3 @@ class RedactingFormatter(logging.Formatter):
                     fr'{field}=[^;]+', f'{field}={self.REDACTION}', message
                     )
         return message
-
-
-PII_FIELDS = ("name", "email", "phone", "ssn", "password")
-
-
-def get_logger() -> logging.Logger:
-    """
-    Create and configure a logging.Logger object named "user_data".
-
-    :return: The configured logger object.
-    """
-    logger = logging.getLogger("user_data")
-    logger.setLevel(logging.INFO)
-    logger.propagate = False
-
-    stream_handler = StreamHandler()
-    formatter = RedactingFormatter(PII_FIELDS)
-    stream_handler.setFormatter(formatter)
-
-    logger.addHandler(stream_handler)
-
-    return logger
-
-
-if __name__ == "__main__":
-    logger = get_logger()
-    logger.info("This is a test log message with sensitive information.")
