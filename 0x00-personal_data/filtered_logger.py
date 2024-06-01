@@ -5,6 +5,7 @@ Module containing get_logger function and PII_FIELDS constant.
 import re
 import logging
 from logging import StreamHandler
+from typing import List, Tuple
 
 
 class RedactingFormatter(logging.Formatter):
