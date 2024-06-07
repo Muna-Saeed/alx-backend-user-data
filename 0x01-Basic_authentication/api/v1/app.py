@@ -12,7 +12,8 @@ import os
 app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
-
+auth = os.environ.get('AUTH_TYPE', None)
+exclude = ['/api/v1/status/', '/api/v1/unauthorized/', '/api/v1/forbidden/']
 if AUTH_TYPE:
     from api.v1.auth.auth import Auth
     auth = Auth()
