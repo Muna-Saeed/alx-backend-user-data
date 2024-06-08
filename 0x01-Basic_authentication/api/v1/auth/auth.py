@@ -18,11 +18,10 @@ class Auth:
         if any(fn.fnmatch(path, s) for s in excluded_paths):
             return False
         # Ensure path ends with a slash for comparison
-        if not path.endswith('/'):
-            path += '/'
-        for ep in excluded_paths:
-            if ep.endswith('/') and ep == path:
-                return False
+        if path in excluded_paths:
+            return False
+        if path + '/' in excluded_paths:
+            return False
         return True
 
     def authorization_header(self, request=None) -> str:
