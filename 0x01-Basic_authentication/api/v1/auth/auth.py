@@ -13,7 +13,7 @@ class Auth:
         """ Determines if authentication is required """
         if path is None:
             return True
-        if excluded_paths is None or len(excluded_paths) == 0:
+        if not excluded_paths:
             return True
         if any(fn.fnmatch(path, s) for s in excluded_paths):
             return False
