@@ -51,7 +51,7 @@ class BasicAuth(Auth):
                 ':', 1
                 )
         return (user_email, user_password)
-                
+
     def user_object_from_credentials(
             self, user_email: str, user_pwd: str
             ) -> TypeVar('User'):
@@ -70,5 +70,3 @@ class BasicAuth(Auth):
         if not user.is_valid_password(user_pwd):
             return None
         return user
-   
-  
