@@ -102,6 +102,6 @@ curl "http://0.0.0.0:5000/api/v1/users" -H "Authorization: Basic <base64-encoded
 ```
 
 ## Author
-- [Muna](https://github.com/Muna-Saeed
+- [Muna](https://github.com/Muna-Saeed)
 
 This `README.md` file provides a clear and structured overview of the project, including the detailed background context, resources, learning objectives, requirements, setup instructions, usage examples, and author information.
