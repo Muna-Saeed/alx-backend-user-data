@@ -13,25 +13,25 @@ app = Flask(__name__)
 app.register_blueprint(app_views)
 CORS(app, resources={r"/api/v1/*": {"origins": "*"}})
 
-auth = None
-auth_type = os.environ.get('AUTH_TYPE', None)
-
-if auth_type:
-    if auth_type == "basic_auth":
-        from api.v1.auth.basic_auth import BasicAuth
-        auth = BasicAuth()
-    elif auth_type == "session_auth":
-        from api.v1.auth.session_auth import SessionAuth
-        auth = SessionAuth()
-    else:
-        from api.v1.auth.auth import Auth
-        auth = Auth()
+auth = os.environ.get('AUTH_TYPE', None)
 
 excluded_paths = [
     '/api/v1/status/',
     '/api/v1/unauthorized/',
-    '/api/v1/forbidden/'
+    '/api/v1/forbidden/',
+    '/api/v1/auth_session/login/'
 ]
+
+if auth:
+    if auth == "basic_auth":
+        from api.v1.auth.basic_auth import BasicAuth
+        auth = BasicAuth()
+    elif auth == "session_auth":
+        auth = SessionAuth()
+    else:
+        from api.v1.auth.basic_auth import Auth
+        auth = Auth()
+
 
 @app.errorhandler(404)
 def not_found(error) -> str:
@@ -58,8 +58,9 @@ def before_request():
     if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
         abort(401)
     request.current_user = auth.current_user(request)
-    if request.current_user is None:
+    if auth.current_user is None:
         abort(403)
+
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
