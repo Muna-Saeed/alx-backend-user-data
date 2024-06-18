@@ -51,17 +51,15 @@ def forbidden(error) -> str:
 @app.before_request
 def before_request():
     """ Before request handler """
-    if auth:
-        if auth.require_auth(request.path, exclude):
-            auth_header = auth.authorization_header(request)
-            user = auth.current_user(request)
-            if auth.authorization_header(request) is None:
-                if auth.session_cookie(request) is None:
-                    abort(401)
-            if user is None:
-                abort(403)
-        request.current_user = auth.current_user(request)
-
+    if auth is None:
+        return
+    if not auth.require_auth(request.path, excluded_paths):
+        return
+    if auth.authorization_header(request) is None and auth.session_cookie(request) is None:
+        abort(401)
+    request.current_user = auth.current_user(request)
+    if request.current_user is None:
+        abort(403)
 
 if __name__ == "__main__":
     host = getenv("API_HOST", "0.0.0.0")
