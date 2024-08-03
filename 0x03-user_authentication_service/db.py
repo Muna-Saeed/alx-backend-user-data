@@ -3,17 +3,15 @@
 DB module
 """
 
-
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from user import Base, User
 from sqlalchemy.exc import InvalidRequestError, NoResultFound
-
+from user import Base, User
 
 class DB:
-    """DB class
+    """DB class to handle user data operations
     """
 
     def __init__(self) -> None:
@@ -79,15 +77,16 @@ class DB:
         Raises:
             ValueError: If an argument does not correspond to a user attribute
         """
-        valid_attributes = {
-            "email", "hashed_password", "session_id", "reset_token"
-        }
+        valid_attributes = {"email", "hashed_password", "session_id", "reset_token"}
 
+        # Find the user by ID
         user = self.find_user_by(id=user_id)
 
+        # Update user attributes
         for key, value in kwargs.items():
             if key not in valid_attributes:
                 raise ValueError(f"Invalid attribute: {key}")
             setattr(user, key, value)
 
+        # Commit the changes to the database
         self._session.commit()
