@@ -68,7 +68,7 @@ class DB:
         except TypeError:
             raise InvalidRequestError("Invalid query arguments.")
 
-    def update_user(self, user_id: int, **kwargs: dict[str, any]) -> None:
+    def update_user(self, user_id: int, **kwargs) -> None:
         """Update a user's attributes
 
         Args:
