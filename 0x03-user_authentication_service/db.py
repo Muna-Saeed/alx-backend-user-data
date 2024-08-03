@@ -66,5 +66,5 @@ class DB:
             if user is None:
                 raise NoResultFound("No user found with the given criteria.")
             return user
-        except Exception as e:
-            raise InvalidRequestError("Invalid query arguments.") from e
+        except TypeError:
+            raise InvalidRequestError("Invalid query arguments.")
