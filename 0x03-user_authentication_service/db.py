@@ -45,9 +45,4 @@ class DB:
         new_user = User(email=email, hashed_password=hashed_password)
         self._session.add(new_user)
         self._session.commit()
-        
-        # Debug: Check if the user was added
-        user_in_db = self._session.query(User).filter_by(email=email).first()
-        print(f"Added user: {user_in_db}")
-
         return new_user
