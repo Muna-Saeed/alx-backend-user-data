@@ -47,7 +47,7 @@ class DB:
         self._session.add(new_user)
         self._session.commit()
         return new_user
-        
+
     def find_user_by(self, **kwargs) -> User:
         """Find a user by keyword arguments
 
@@ -79,7 +79,9 @@ class DB:
         Raises:
             ValueError: If an argument does not correspond to a user attribute
         """
-        valid_attributes = {"email", "hashed_password", "session_id", "reset_token"}
+        valid_attributes = {
+            "email", "hashed_password", "session_id", "reset_token"
+        }
         
         # Find the user by ID
         user = self.find_user_by(id=user_id)
@@ -89,6 +91,6 @@ class DB:
             if key not in valid_attributes:
                 raise ValueError(f"Invalid attribute: {key}")
             setattr(user, key, value)
-        
+            
         # Commit the changes to the database
         self._session.commit()
