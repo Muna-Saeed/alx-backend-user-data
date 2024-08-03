@@ -41,7 +41,7 @@ class Auth:
     def __init__(self):
         self._db = DB()
 
-    def register_user(email: str, password: str) -> User:
+    def register_user(self, email: str, password: str) -> User:
         """
         Register a new user with email and password.
 
@@ -75,3 +75,13 @@ class Auth:
                     )
         except NoResultFound:
             return False
+
+    def create_session(self, email: str) -> str:
+        """Creates a session for the user and returns the session ID."""
+        try:
+            user = self._db.find_user_by(email=email)
+            session_id = str(uuid.uuid4())
+            self._db.update_user(user.id, session_id=session_id)
+            return session_id
+        except NoResultFound:
+            return None
