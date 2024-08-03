@@ -11,6 +11,7 @@ from sqlalchemy.exc import InvalidRequestError
 from sqlalchemy.orm.exc import NoResultFound
 from user import Base, User
 
+
 class DB:
     """DB class to handle user data operations
     """
@@ -78,7 +79,9 @@ class DB:
         Raises:
             ValueError: If an argument does not correspond to a user attribute
         """
-        valid_attributes = {"email", "hashed_password", "session_id", "reset_token"}
+        valid_attributes = {
+                "email", "hashed_password", "session_id", "reset_token"
+                }
 
         # Find the user by ID
         user = self.find_user_by(id=user_id)
