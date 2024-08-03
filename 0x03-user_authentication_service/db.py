@@ -8,7 +8,7 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from user import Base, User  # Make sure User is imported
+from user import Base, User
 from sqlalchemy.exc import InvalidRequestError, NoResultFound
 
 
@@ -83,14 +83,14 @@ class DB:
             "email", "hashed_password", "session_id", "reset_token"
         }
 
-        # Find the user by ID
+        '''Find the user by ID'''
         user = self.find_user_by(id=user_id)
 
-        # Update user attributes
+        '''Update user attributes'''
         for key, value in kwargs.items():
             if key not in valid_attributes:
                 raise ValueError(f"Invalid attribute: {key}")
             setattr(user, key, value)
 
-        # Commit the changes to the database
+        '''Commit the changes to the database'''
         self._session.commit()
