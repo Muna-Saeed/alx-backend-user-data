@@ -3,6 +3,7 @@
 This module contains the SQLAlchemy model for the User entity.
 """
 
+
 from sqlalchemy import Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 
