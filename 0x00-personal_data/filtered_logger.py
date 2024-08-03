@@ -92,18 +92,21 @@ def get_db() -> mysql.connector.connection.MySQLConnection:
         database=database
     )
 
+
 def main():
     """
     Read and filter data from the users table in the database.
-
-    Retrieve all rows from the users table and display each row under a filtered format.
+    Retrieve all rows from the users table and
+    display each row under a filtered format.
     """
     logger = logging.getLogger("user_data")
     db = get_db()
     cursor = db.cursor()
     cursor.execute("SELECT * FROM users;")
     for row in cursor:
-        filtered_row = {key: "***" if key in ["name", "email", "phone", "ssn", "password"] else value for key, value in zip(cursor.column_names, row)}
+        filtered_row = {
+          key: "***" if key in ["name", "email", "phone", "ssn", "password"]
+          else value for key, value in zip(cursor.column_names, row)}
         logger.info(filtered_row)
     cursor.close()
     db.close()
