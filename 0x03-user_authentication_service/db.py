@@ -2,15 +2,12 @@
 """
 DB module
 """
-
-
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from user import User
 from sqlalchemy.exc import InvalidRequestError, NoResultFound
-
+from user import Base, User
 
 class DB:
     """DB class
@@ -43,11 +40,12 @@ class DB:
         Returns:
             User: The created User object
         """
-        user = User(email=email, hashed_password=hashed_password)
-        self._session.add(user)
+        new_user = User(email=email, hashed_password=hashed_password)
+        self._session.add(new_user)
         self._session.commit()
-        return user
         
+        return new_user
+
     def find_user_by(self, **kwargs) -> User:
         """Find a user by keyword arguments
 
