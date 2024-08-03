@@ -7,7 +7,8 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.session import Session
-from sqlalchemy.exc import InvalidRequestError, NoResultFound
+from sqlalchemy.exc import InvalidRequestError
+from sqlalchemy.orm.exc import NoResultFound
 from user import Base, User
 
 class DB:
@@ -67,7 +68,7 @@ class DB:
         except TypeError:
             raise InvalidRequestError("Invalid query arguments.")
 
-    def update_user(self, user_id: int, **kwargs) -> None:
+    def update_user(self, user_id: int, **kwargs: dict[str, any]) -> None:
         """Update a user's attributes
 
         Args:
