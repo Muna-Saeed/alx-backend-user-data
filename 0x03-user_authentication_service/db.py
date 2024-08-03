@@ -83,14 +83,14 @@ class DB:
             "email", "hashed_password", "session_id", "reset_token"
         }
 
-        '''Find the user by ID'''
+        """Find the user by ID"""
         user = self.find_user_by(id=user_id)
 
-        '''Update user attributes'''
+        """Update user attributes"""
         for key, value in kwargs.items():
             if key not in valid_attributes:
                 raise ValueError(f"Invalid attribute: {key}")
             setattr(user, key, value)
 
-        '''Commit the changes to the database'''
+        """Commit the changes to the database"""
         self._session.commit()
