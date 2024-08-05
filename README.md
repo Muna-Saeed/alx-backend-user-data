@@ -10,9 +10,6 @@ This folder contains projects related to handling and protecting personal data. 
 
 #### Files
 - `README.md`: Description and objectives of the personal data handling project.
-- `0-filter_datum.py`: Script to filter sensitive data from a log.
-- `1-encrypt_password.py`: Script to hash and verify passwords.
-- `2-mock_log.py`: Script to mock a log message with filtered sensitive data.
 
 ### 0x01-Basic_authentication
 
@@ -20,9 +17,6 @@ This folder contains projects related to implementing basic authentication mecha
 
 #### Files
 - `README.md`: Description and objectives of the basic authentication project.
-- `0-app.py`: Basic Flask app with basic authentication.
-- `1-basic_auth.py`: Script to implement basic authentication.
-- `2-session_auth.py`: Script to implement session authentication.
 
 ### 0x02-Session_authentication
 
@@ -30,10 +24,6 @@ This folder contains projects related to implementing session-based authenticati
 
 #### Files
 - `README.md`: Description and objectives of the session authentication project.
-- `0-app.py`: Basic Flask app with session authentication.
-- `1-session_auth.py`: Script to implement session authentication.
-- `2-expiration.py`: Script to handle session expiration.
-- `3-access_log.py`: Script to log access details for authenticated sessions.
 
 ### 0x03-user_authentication_service
 
@@ -41,11 +31,6 @@ This folder contains projects related to creating a user authentication service.
 
 #### Files
 - `README.md`: Description and objectives of the user authentication service project.
-- `0-auth.py`: Script to implement user authentication service.
-- `1-login.py`: Script to handle user login.
-- `2-logout.py`: Script to handle user logout.
-- `3-register.py`: Script to handle user registration.
-- `4-password_reset.py`: Script to handle password reset functionality.
 
 ## Requirements
 
@@ -59,7 +44,7 @@ This folder contains projects related to creating a user authentication service.
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/alx-backend-user-data.git
+   git clone https://github.com/Muna-Saeed/alx-backend-user-data.git
    ```
 2. Navigate to the project directory:
    ```bash
